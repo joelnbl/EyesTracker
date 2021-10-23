@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .container>div {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="up-left"></div>
+        <div class="up-right"></div>
+        <div class="down-left"></div>
+        <div class="down-right"></div>
+    </div>
+
+    <script src="./webgazer.js" type="text/javascript"></script>
+
+    <script>
+        const upLeft = document.querySelector('.up-left')
+        const upRight = document.querySelector('.up-right')
+        const downLeft = document.querySelector('.down-left')
+        const downRight = document.querySelector('.down-right')
+
+        webgazer.setGazeListener(function (data, elapsedTime) {
+            if (data == null) {
+                return;
+            }
+
+            upLeft.style.backgroundColor = 'white';
+            upRight.style.backgroundColor = 'white';
+            downLeft.style.backgroundColor = 'white';
+            downRight.style.backgroundColor = 'white';
+
+            if (data.x < window.innerWidth / 2 && data.y < window.innerHeight / 2) {
+                upLeft.style.backgroundColor = 'tomato';
+            }
+
+            if (data.x > window.innerWidth / 2 && data.y < window.innerHeight / 2) {
+                upRight.style.backgroundColor = 'tomato';
+            }
+
+            if (data.x < window.innerWidth / 2 && data.y > window.innerHeight / 2) {
+                downLeft.style.backgroundColor = 'tomato';
+            }
+
+            if (data.x > window.innerWidth / 2 && data.y > window.innerHeight / 2) {
+                downRight.style.backgroundColor = 'tomato';
+            }
+        }).begin()
+
+    </script>
+</body>
+
+</html>
